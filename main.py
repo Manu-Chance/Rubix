@@ -1,5 +1,6 @@
 from collections import deque
 from tkinter import *
+import random
 
 # Initial Condition
 x =         deque([0,0,0,0]) # 0 ==> Blue
@@ -8,6 +9,7 @@ z =         deque([2,2,2,2]) # 2 ==> White
 x_alt =     deque([3,3,3,3]) # 3 ==> Green
 y_alt =     deque([4,4,4,4]) # 4 ==> Orange
 z_alt =     deque([5,5,5,5]) # 5 ==> Yellow
+NOTATION = 'LRUDFBlrudfb'
 
 # Tkinter class
 class Window(Frame):
@@ -44,8 +46,39 @@ def notation_input():
             back_inv()
         else:
             notation_button.config(bg='cyan')
-            print('Something went wrong')     
+            print('Something went wrong') 
 
+def notation_input2(string):
+    notation_button.config(bg='purple')
+    for x in (string):
+        if x == 'L':
+            left()
+        elif x == 'R':
+            right()
+        elif x == 'U':
+            up()
+        elif x == 'D':
+            down()
+        elif x == 'F':
+            front()
+        elif x == 'B':
+            back()
+        elif x == 'l':
+            left_inv()
+        elif x =='r':
+            right_inv()
+        elif x =='u':
+            up_inv()
+        elif x == 'd':
+            down_inv()
+        elif x == 'f':
+            front_inv()
+        elif x == 'b':
+            back_inv()
+        else:
+            notation_button.config(bg='cyan')
+            print('Something went wrong')
+  
 def color_picker(color):
     if color == 0:
         return 'blue'
@@ -322,6 +355,19 @@ def update_all_colors():
     z_alt_button_3.config(bg=color_picker(z_alt[2]))
     z_alt_button_4.config(bg=color_picker(z_alt[3]))
 
+def random_scramble():
+    global random_scramble
+    random_scramble = ''.join(random.choice(NOTATION) for _ in range(50))
+    print(random_scramble)
+    notation_input2(random_scramble)
+
+def random_scramble_reverse():
+    rev_random_scramble = random_scramble[::-1]
+    rev_random_scramble = rev_random_scramble.swapcase()
+    print(rev_random_scramble)
+    notation_input2(rev_random_scramble)
+
+
 root = Tk()
 app = Window(root)
 root.wm_title("Rubix Cube 2x2")
@@ -423,5 +469,11 @@ bback = Button(root, bg='purple', command=back, text='BACK')
 bback.place(bordermode=OUTSIDE, height=100, width=50, x=900, y=300)
 bbackinv = Button(root, bg='red', command=back_inv, text='BINV')
 bbackinv.place(bordermode=OUTSIDE, height=100, width=50, x=950, y=300)
+
+rb = Button(root, bg='lime', command=random_scramble, text='RNG')
+rb.place(bordermode=OUTSIDE, height=100, width=50, x=1050, y=100)
+
+reverse_rb = Button(root, bg='lime', command=random_scramble_reverse, text='revRNG')
+reverse_rb.place(bordermode=OUTSIDE, height=100, width=50, x=1050, y=200)
 
 root.mainloop()
