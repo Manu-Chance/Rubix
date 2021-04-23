@@ -358,13 +358,11 @@ def update_all_colors():
 def random_scramble():
     global random_scramble
     random_scramble = ''.join(random.choice(NOTATION) for _ in range(50))
-    print(random_scramble)
     notation_input2(random_scramble)
 
 def random_scramble_reverse():
     rev_random_scramble = random_scramble[::-1]
     rev_random_scramble = rev_random_scramble.swapcase()
-    print(rev_random_scramble)
     notation_input2(rev_random_scramble)
 
 
